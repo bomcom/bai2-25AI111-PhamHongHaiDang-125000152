@@ -1,0 +1,69 @@
+BẢNG NHẬN XÉT SO SÁNH GIỮA CODE TỰ VIẾT VÀ CODE DO AI SINH
+Học phần: Kỹ thuật lập trình / Thực hành Python
+Sinh viên: Phạm Hồng Hải Đăng - MSSV: 125000152 - Lớp: 25AI111
+
+================================================================================
+1. PHẦN B: CÁC THUẬT TOÁN TRÊN LIST (Bai1_B.py vs Bai1_B_AI.py)
+--------------------------------------------------------------------------------
+* Điểm giống nhau:
+  - Cả hai phiên bản đều giải quyết đầy đủ từ câu a đến câu h: chèn phần tử, xóa số nguyên tố, kiểm tra tăng dần, tính BCNN, tìm cặp số nguyên tố cùng nhau, đếm tần số, đảo ngược mảng và thống kê dãy số.
+  - Cả hai đều áp dụng đúng thuật toán 2 con trỏ (Two Pointers) cho câu g (đảo mảng) và thuật toán duyệt đơn (Single Pass) không dùng hàm có sẵn cho câu h.
+  - Sử dụng collections.Counter để đếm tần số xuất hiện ngắn gọn.
+
+* Điểm khác nhau:
+  - Hàm kiểm tra số nguyên tố:
+    + Code tự viết: duyệt từ 2 đến sqrt(n).
+    + Code AI: duyệt bước nhảy i += 6 (loại bỏ trước các bội của 2 và 3), giảm 2/3 số phép chia dư so với duyệt thông thường.
+  - Kiểm tra dãy tăng dần:
+    + Code tự viết: dùng vòng lặp for tường minh.
+    + Code AI: dùng hàm all() kết hợp generator expression ngắn gọn và mang phong cách Pythonic.
+  - Quản lý dữ liệu và tính bất biến (Immutability):
+    + Code AI luôn tạo bản sao (copy) để tránh vô tình làm thay đổi mảng gốc (side-effect).
+
+* Đánh giá tính tối ưu và dễ đọc:
+  - Code tự viết: Tư duy giải thuật tuần tự, dễ hiểu đối với người mới học cấu trúc dữ liệu.
+  - Code AI: Cú pháp ngắn gọn, tối ưu thuật toán (như kiểm tra SNT), xử lý ngoại lệ đầu vào (try-except) chặt chẽ hơn.
+
+================================================================================
+2. PHẦN C: QUẢN LÝ KHO HÀNG (baiC.py vs baiC_AI.py)
+--------------------------------------------------------------------------------
+* Điểm giống nhau:
+  - Cùng sử dụng dataclass SanPham để mô hình hóa thông tin sản phẩm.
+  - Cùng cài đặt phương thức gia_tri_ton() = so_luong * don_gia.
+  - Đều thực hiện đầy đủ 5 yêu cầu: đọc file sanpham.txt, thêm sản phẩm, tính tổng tồn kho, tìm sản phẩm tồn kho lớn nhất và ghi ra file sanpham_moi.txt.
+
+* Điểm khác nhau:
+  - Kiến trúc và cấu trúc mã nguồn:
+    + Code tự viết: Toàn bộ các hàm nghiệp vụ (đọc file, ghi file, tính tổng, main) bị thụt lề vào bên trong định nghĩa của `class SanPham`, khiến các hàm trở thành static method của class.
+    + Code AI: Tách biệt rõ ràng (Separation of Concerns) giữa Model (`@dataclass SanPham`) và các hàm chức năng độc lập bên ngoài.
+  - Xử lý file:
+    + Code AI tự động kiểm tra và tạo dữ liệu mẫu nếu file `sanpham.txt` chưa có, tránh lỗi FileNotFoundError khi chạy lần đầu.
+    + Code AI có hàm in bảng dạng cột (formatting table) trực quan, chuyên nghiệp.
+
+* Đánh giá tính tối ưu và dễ đọc:
+  - Code AI có cấu trúc chuẩn mực hơn theo nguyên lý lập trình hướng đối tượng, dễ bảo trì và tái sử dụng hơn.
+
+================================================================================
+3. PHẦN D: QUẢN LÝ THƯ VIỆN SÁCH (baiD.py vs baiD_AI.py)
+--------------------------------------------------------------------------------
+* Điểm giống nhau:
+  - Cùng hướng tới mô hình quản lý sách với các trường: mã sách, tên sách, tác giả, số lượng, giá tiền.
+  - Sử dụng hàm sort(key=lambda ...) để sắp xếp sách theo tên.
+
+* Điểm khác nhau:
+  - Khai báo Dataclass:
+    + Code tự viết: Viết nhầm `from dataclass import dataclass` (thiếu chữ s) và viết `__init__` thủ công, chưa tận dụng được sức mạnh tự sinh của decorator `@dataclass`.
+    + Code AI: Khai báo `@dataclass class Sach:` chuẩn PEP 557 với Type Hinting rõ ràng.
+  - Mức độ hoàn thiện trong hàm main():
+    + Code tự viết: Mới chỉ gọi đọc file, sắp xếp và hiển thị; chưa gọi chức năng tìm kiếm, thống kê và mượn sách trong main.
+    + Code AI: Hoàn thiện menu tương tác đầy đủ cả 6 yêu cầu, có kiểm tra số lượng sách mượn hợp lệ và xuất file `sach_capnhat.txt`.
+
+* Đánh giá tính tối ưu và dễ đọc:
+  - Code AI hoàn thiện trọn vẹn nghiệp vụ theo đúng đề bài, giao diện dòng lệnh thân thiện, thông báo rõ ràng cho người dùng.
+
+================================================================================
+KẾT LUẬN CHUNG
+================================================================================
+- Code tự viết thể hiện rõ tư duy giải thuật tốt, nắm vững thao tác mảng và các thuật toán kinh điển (Bubble sort, Binary search, Two Pointers).
+- Code AI đem lại góc nhìn tối ưu hơn về cấu trúc dự án (kiến trúc mã sạch), phong cách chuẩn Python (PEP 8, Dataclass) và xử lý ngoại lệ an toàn.
+- Việc kết hợp: Tự tư duy logic trước, sau đó tham khảo các kỹ thuật tinh gọn từ AI giúp nâng cao kỹ năng lập trình toàn diện và rèn luyện tư duy phản biện.

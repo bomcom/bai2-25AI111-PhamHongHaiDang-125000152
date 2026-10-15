@@ -1,0 +1,3 @@
+SP001,Ban phim,50,150000
+SP002,Chuot khong day,120,90000
+SP003,Man hinh 24 inch,15,2500000
