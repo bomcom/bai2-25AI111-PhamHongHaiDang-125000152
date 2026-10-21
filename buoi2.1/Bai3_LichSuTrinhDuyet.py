@@ -25,21 +25,32 @@ class BrowserHistory:
         # 1. Tạo new_node với giá trị url
         # 2. Cắt bỏ forward history: nối current_node.next = new_node, new_node.prev = current_node
         # 3. Cập nhật current_node = new_node
-        pass
+        new_node = Node(url)
+        self.current_node.next = new_node
+        new_node.prev = self.current_node
+        self.current_node = new_node    
 
     def go_back(self):
         # TODO:
         # 1. Kiểm tra xem current_node.prev có tồn tại hay không
         # 2. Nếu có, lùi current_node = current_node.prev
         # 3. Nếu không, thông báo 'Không có trang trước đó.'
-        pass
+        if self.current_node.prev:
+            self.current_node = self.current_node.prev
+            print(f"-> Đã quay lại trang: {self.current_node.value}")
+        else:
+            print("-> Không có trang trước đó.")        
 
     def go_forward(self):
         # TODO:
         # 1. Kiểm tra xem current_node.next có tồn tại hay không
         # 2. Nếu có, tiến current_node = current_node.next
         # 3. Nếu không, thông báo 'Không có trang phía trước.'
-        pass
+        if self.current_node.next:
+            self.current_node = self.current_node.next
+            print(f"-> Đã tiến tới trang: {self.current_node.value}")
+        else:
+            print("-> Không có trang phía trước.")            
 
     def show_current(self):
         print(f"Trang hiện tại: {self.current_node.value}")
